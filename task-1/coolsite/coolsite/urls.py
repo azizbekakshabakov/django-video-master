@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 from coolsite import settings
-from women.views import *
+from mainapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('women.urls'))
+    path('', include('mainapp.urls'))
 ]
 
 if settings.DEBUG:
