@@ -11,7 +11,14 @@ def about(request):
     users = User.objects.all()
     return render(request, 'mainapp/about.html', {'title': 'Video Master', 'users': users})
 
-# def 
+def register(request):
+    return render(request, 'mainapp/register.html')
+
+def login(request):
+    return render(request, 'mainapp/login.html')
+
+def addVideo(request):
+    return render(request, 'mainapp/add-video.html')
 
 # МОЖНО ВЫЗВАТЬ 403, ЕСЛИ ВВЕСТИ НЕВЕРНЫЙ ЕМАИЛ
 def moderator(request):

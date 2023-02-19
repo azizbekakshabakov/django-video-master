@@ -9,5 +9,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login, name='login'),
     path('add-video/', addVideo, name='addVideo'),
-    path('video/', video, name='video')
+    # path('video/', video, name='video')
 ]
