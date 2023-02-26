@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="text-center mt-5 pt-5">About users</h1>
     {% for user in users %}
-        <h2><a href="{% url 'user' user.pk %}">{{ user.login }}</a></h2>
+        <h2><a href="{% url 'user' user.pk %}" class="link-dark">{{ user.login }}</a></h2>
         <hr>
     {% endfor %}
 {% endblock %}
