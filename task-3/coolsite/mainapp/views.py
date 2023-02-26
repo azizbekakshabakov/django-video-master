@@ -5,11 +5,11 @@ from django.core.exceptions import PermissionDenied, BadRequest
 from .models import *
 
 def index(request):
-    return render(request, 'mainapp/index.html', {'title': 'Video Master'})
+    return render(request, 'mainapp/index.html')
 
 def about(request):
     users = User.objects.all()
-    return render(request, 'mainapp/about.html', {'title': 'Video Master', 'users': users})
+    return render(request, 'mainapp/about.html', {'users': users})
 
 def register(request):
     return render(request, 'mainapp/register.html')
@@ -20,22 +20,19 @@ def login(request):
 def addVideo(request):
     return render(request, 'mainapp/add-video.html')
 
-# МОЖНО ВЫЗВАТЬ 403, ЕСЛИ ВВЕСТИ НЕВЕРНЫЙ ЕМАИЛ
-def moderator(request):
-    if request.GET['email'] != 'moderator@gmail.com':
-        raise PermissionDenied()
-
-    return HttpResponse(f"<h1>Ваш ник: {request.GET['email']}</h1>")
+def videos(request):
+    videos = Video.objects.all()
+    return render(request, 'mainapp/videos.html', {'videos': videos})
 
 
 def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1>404 (Not Found) - Страница не найдена</h1>')
+    return render(request, 'mainapp/error/page-not-found.html')
 
 def forbidden(request, exception):
-    return HttpResponseForbidden('<h1>403 (Forbidden) - У вас нет прав на просмотр этой страницы</h1>')
+    return render(request, 'mainapp/error/forbidden.html')
 
 def badRequest(request, exception):
-    return HttpResponseBadRequest('<h1>400 (Bad Request) - сервер не может или не будет обрабатывать запрос</h1>')
+    return render(request, 'mainapp/error/bad-request.html')
 
 def internalServerError(request):
-    return HttpResponseServerError('<h1>500 (Internal Server Error) - внутренняя ошибка сервера</h1>')
+    return render(request, 'mainapp/error/internal-server-error.html')
