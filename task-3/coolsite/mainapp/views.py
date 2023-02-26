@@ -14,6 +14,13 @@ def about(request):
     }
     return render(request, 'mainapp/about.html', context=context)
 
+def user(request, user_id):
+    user = User.objects.get(pk=user_id)
+    context = {
+        'user': user
+    }
+    return render(request, 'mainapp/user.html', context=context)
+
 def register(request):
     return render(request, 'mainapp/register.html')
 
