@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.urls import reverse
 
 class User(models.Model):
     login = models.CharField(max_length=255)
@@ -10,6 +11,9 @@ class User(models.Model):
     
     def __str__(self):
         return self.login
+
+    def get_absolute_url(self):
+        return reverse('user', kwargs={'user_id': self.pk})
 
 class Video(models.Model):
     index = models.CharField(max_length=255)
