@@ -9,7 +9,10 @@ def index(request):
 
 def about(request):
     users = User.objects.all()
-    return render(request, 'mainapp/about.html', {'users': users})
+    context = {
+        'users': users
+    }
+    return render(request, 'mainapp/about.html', context=context)
 
 def register(request):
     return render(request, 'mainapp/register.html')
@@ -22,7 +25,10 @@ def addVideo(request):
 
 def videos(request):
     videos = Video.objects.all()
-    return render(request, 'mainapp/videos.html', {'videos': videos})
+    context = {
+        'videos': videos
+    }
+    return render(request, 'mainapp/videos.html', context=context)
 
 
 def pageNotFound(request, exception):
