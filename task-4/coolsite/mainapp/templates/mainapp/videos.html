@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+    <h1 class="text-center mt-5 pt-5">Videos</h1>
+    {% for video in videos %}
+        <h2>Index: {{ video.index }}</h2>
+        <p>Video location: {{ video.video }}</p>
+        <p>Preview location: {{ video.preview }}</p>
+        <p>Author: {{ video.user_id.first_name }} {{ video.user_id.last_name }} ({{ video.user_id.login }})</p>
+        <hr>
+    {% endfor %}
+{% endblock %}
