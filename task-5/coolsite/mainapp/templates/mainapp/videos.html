@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load mainapp_tags %}
+
+{% block content %}
+    <h1 class="text-center mt-5 pt-5">Videos</h1>
+
+    <ul class="nav flex-column" style="position: absolute; top: 56px; left: 0px;">
+        {% if user_selected == 0 %}
+            <li class="nav-item nav-link text-dark">
+                All videos
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'videos' %}">All videos</a>
+            </li>
+        {% endif %}
+    
+        <!-- {% get_users as users %} -->
+        {% show_users_videos 'login' user_selected %}
+    </ul>
+
+    {% show_videos user_selected %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% for video in videos %}
+    <h2>Index: {{ video.index }}</h2>
+    <p>Video location: {{ video.video }}</p>
+    <div>Preview:</div>
+    <p><img src="/media/{{ video.preview }}" alt="" width="160px" height="90px"></p>
+    <p>Author: {{ video.user_id.first_name }} {{ video.user_id.last_name }} ({{ video.user_id.login }})</p>
+    <hr>
+{% endfor %}
