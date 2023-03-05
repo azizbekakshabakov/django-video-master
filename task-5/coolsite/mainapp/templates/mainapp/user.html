@@ -4,5 +4,7 @@
     <h1 class="text-center mt-5 pt-5">About one user:</h1>
     <h2>Login: {{ user.login }}</h2>
     <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <div>Photo:</div>
+    <p><img src="/media/{{user.icon}}" alt=""></p>
     <hr>
 {% endblock %}

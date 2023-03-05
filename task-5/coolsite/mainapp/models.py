@@ -4,6 +4,7 @@ from django.urls import reverse
 
 class User(models.Model):
     login = models.CharField(max_length=255, verbose_name='Логин')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     password = models.CharField(max_length=255)
@@ -13,7 +14,7 @@ class User(models.Model):
         return self.login
 
     def get_absolute_url(self):
-        return reverse('user', kwargs={'user_id': self.pk})
+        return reverse('user', kwargs={'user_slug': self.slug})
 
     class Meta:
         verbose_name = 'Пользователь/автор'
@@ -22,12 +23,17 @@ class User(models.Model):
 
 class Video(models.Model):
     index = models.CharField(max_length=255, verbose_name='Индекс')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
+    name = models.CharField(max_length=255, verbose_name='Название')
     video = models.FileField(upload_to='videos/', null=True, validators=[FileExtensionValidator(allowed_extensions=['mov','avi','mp4','webm','mkv'])], verbose_name='Видео')
     preview = models.ImageField(upload_to='previews/', verbose_name='Превьюшка')
     user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Автор')
 
     def __str__(self):
         return self.index
+
+    def get_absolute_url(self):
+        return reverse('video', kwargs={'video_slug': self.slug})
     
     class Meta:
         verbose_name = 'Видео'

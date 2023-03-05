@@ -1,8 +1,13 @@
-{% for video in videos %}
+{% extends 'mainapp/base.html' %}
+{% load mainapp_tags %}
+
+{% block content %}
+    <h1 class="text-center mt-5 pt-5">Videos</h1>
+
     <h2>Index: {{ video.index }}</h2>
-    <p><a href="{{ video.get_absolute_url }}">Video location: {{ video.video }}</a></p>
+    <p>Video name: {{ video.name }}</p>
     <div>Preview:</div>
     <p><img src="/media/{{ video.preview }}" alt="" width="160px" height="90px"></p>
     <p>Author: {{ video.user_id.first_name }} {{ video.user_id.last_name }} ({{ video.user_id.login }})</p>
     <hr>
-{% endfor %}
+{% endblock %}

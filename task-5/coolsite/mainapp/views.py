@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseForbidden
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied, BadRequest
 
 from .models import *
@@ -10,8 +10,8 @@ def index(request):
 def about(request):
     return render(request, 'mainapp/about.html')
 
-def user(request, user_id):
-    user = User.objects.get(pk=user_id)
+def user(request, user_slug):
+    user = get_object_or_404(User, slug=user_slug)
     context = {
         'user': user
     }
@@ -37,6 +37,16 @@ def userVideos(request, user_id):
         'user_selected': user_id
     }
     return render(request, 'mainapp/videos.html', context=context)
+
+def video(request, video_slug):
+    video = get_object_or_404(Video, slug=video_slug)
+
+    context = {
+        'video': video
+    }
+
+    return render(request, 'mainapp/video.html', context=context)
+
 
 
 def pageNotFound(request, exception):

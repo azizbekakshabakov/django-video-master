@@ -8,13 +8,15 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('login', 'first_name', 'last_name')
     list_editable = ('first_name', 'last_name')
     list_filter = ('first_name',)
+    prepopulated_fields = {'slug': ('first_name', 'last_name')}
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'index', 'video', 'preview', 'user_id')
+    list_display = ('id', 'index', 'name', 'video', 'preview', 'user_id')
     list_display_links = ('id', 'index')
     search_fields = ('index',)
     list_editable = ('user_id',)
     list_filter = ('index',)
+    prepopulated_fields = {'slug': ('name',)}
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'content', 'user_id', 'video_id')
