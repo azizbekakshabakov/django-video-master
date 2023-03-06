@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpRespons
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied, BadRequest
 
+from .forms import *
 from .models import *
 
 def index(request):
@@ -24,7 +25,19 @@ def login(request):
     return render(request, 'mainapp/login.html')
 
 def addVideo(request):
-    return render(request, 'mainapp/add-video.html')
+    if request.method == 'POST':
+        form = AddVideoForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)
+            try:
+                Video.objects.create(**form.cleaned_data)
+                return redirect('videos')
+            except:
+                form.add_error(None, 'Error adding')
+    else:
+        form = AddVideoForm
+
+    return render(request, 'mainapp/add-video.html', {'form': form})
 
 def videos(request):
     context = {
