@@ -26,7 +26,7 @@ def login(request):
 
 def addVideo(request):
     if request.method == 'POST':
-        form = AddVideoForm(request.POST)
+        form = AddVideoForm(request.POST, request.FILES)
         if form.is_valid():
             # print(form.cleaned_data)
             try:

@@ -3,7 +3,7 @@
 {% block content %}
 <h1 class="text-center mt-5 pt-5">Add video</h1>
 
-<form action="{% url 'addVideo' %}" method="post">
+<form action="{% url 'addVideo' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% if form.non_field_errors %}
