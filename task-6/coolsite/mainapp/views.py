@@ -46,12 +46,10 @@ def index(request):
 def about(request):
     return render(request, 'mainapp/about.html')
 
-def user(request, user_slug):
-    user = get_object_or_404(User, slug=user_slug)
-    context = {
-        'user': user
-    }
-    return render(request, 'mainapp/user.html', context=context)
+class User(DetailView):
+    model = User
+    template_name = 'mainapp/user.html'
+    slug_url_kwarg = 'user_slug'
 
 def register(request):
     return render(request, 'mainapp/register.html')
@@ -63,18 +61,6 @@ class AddVideo(CreateView):
     form_class = AddVideoForm
     template_name = 'mainapp/add-video.html'
     successful_url = reverse_lazy('video')
-
-def addVideo(request):
-    if request.method == 'POST':
-        form = AddVideoForm(request.POST, request.FILES)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            form.save()
-            return redirect('videos')
-    else:
-        form = AddVideoForm
-
-    return render(request, 'mainapp/add-video.html', {'form': form})
 
 class Video(DetailView):
     model = Video
