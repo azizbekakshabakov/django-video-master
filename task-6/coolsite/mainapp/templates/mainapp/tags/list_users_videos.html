@@ -1,0 +1,11 @@
+{% for user in users %}
+    {% if user_selected == user.id %}
+        <li class="nav-item nav-link text-dark">
+            {{ user.login }}
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'user-videos' user.pk %}">{{ user.login }}</a>
+        </li>
+    {% endif %}
+{% endfor %}

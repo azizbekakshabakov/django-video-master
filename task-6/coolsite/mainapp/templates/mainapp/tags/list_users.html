@@ -1,0 +1,9 @@
+{% for user in users %}
+    <h2>
+        {% if user.icon %}
+        <img src="{{user.icon.url}}" alt="icon" width="25px" height="25px">
+        {% endif %}
+        <a href="{{ user.get_absolute_url }}" class="link-dark">{{ user.login }}</a>
+    </h2>
+    <hr>
+{% endfor %}
