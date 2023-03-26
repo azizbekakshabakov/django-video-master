@@ -38,6 +38,7 @@ class Video(models.Model):
     class Meta:
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
+        ordering = ['pk']
 
 class Comment(models.Model):
     content = models.TextField(verbose_name='Содержание')

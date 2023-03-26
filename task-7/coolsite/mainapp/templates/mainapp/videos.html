@@ -1,5 +1,4 @@
 {% extends 'mainapp/base.html' %}
-{% load mainapp_tags %}
 
 {% block content %}
     <h1 class="text-center mt-5 pt-5">Videos</h1>
@@ -15,9 +14,27 @@
             </li>
         {% endif %}
     
-        <!-- {% get_users as users %} -->
-        {% show_users_videos 'login' user_selected %}
+        {% for user in users %}
+            {% if user.get_videos__count > 0 %}
+                {% if user_selected == user.id %}
+                    <li class="nav-item nav-link text-dark">
+                        {{ user.login }}
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'user-videos' user.pk %}">{{ user.login }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </ul>
 
-    {% show_videos user_selected %}
+    {% for video in videos %}
+        <h2>Index: {{ video.index }}</h2>
+        <p><a href="{{ video.get_absolute_url }}">Video location: {{ video.video }}</a></p>
+        <div>Preview:</div>
+        <p><img src="/media/{{ video.preview }}" alt="" width="160px" height="90px"></p>
+        <p>Author: {{ video.user_id.first_name }} {{ video.user_id.last_name }} ({{ video.user_id.login }})</p>
+        <hr>
+    {% endfor %}
 {% endblock %}
