@@ -1,0 +1,40 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+    <h1 class="text-center mt-5 pt-5">Videos</h1>
+
+    <ul class="nav flex-column" style="position: absolute; top: 56px; left: 0px;">
+        {% if user_selected == 0 %}
+            <li class="nav-item nav-link text-dark">
+                All videos
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'videos' %}">All videos</a>
+            </li>
+        {% endif %}
+    
+        {% for user in users %}
+            {% if user.get_videos__count > 0 %}
+                {% if user_selected == user.id %}
+                    <li class="nav-item nav-link text-dark">
+                        {{ user.login }}
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'user-videos' user.pk %}">{{ user.login }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    {% for video in videos %}
+        <h2>Index: {{ video.index }}</h2>
+        <p><a href="{{ video.get_absolute_url }}">Video location: {{ video.video }}</a></p>
+        <div>Preview:</div>
+        <p><img src="/media/{{ video.preview }}" alt="" width="160px" height="90px"></p>
+        <p>Author: {{ video.user_id.first_name }} {{ video.user_id.last_name }} ({{ video.user_id.login }})</p>
+        <hr>
+    {% endfor %}
+{% endblock %}
